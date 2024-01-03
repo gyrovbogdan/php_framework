@@ -3,12 +3,16 @@
 require __DIR__ . "/../../vendor/autoload.php";
 
 use Framework\App;
-use Framework\HomeController;
+use function App\Config\{registerRoutes, registerMiddleware};
+use App\Config\Paths;
 
-$app = new App;
+
+$app = new App(Paths::SOURCE . '/App/container-definitions.php');
+
+registerRoutes($app);
+registerMiddleware($app);
 
 $app->run();
 
-$app->get('/', [HomeController::class, 'home']);
 
 return $app;

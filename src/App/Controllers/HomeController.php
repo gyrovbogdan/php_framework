@@ -1,11 +1,22 @@
 <?php
 
-namespace Framework;
+namespace App\Controllers;
+
+use Framework\TemplateEngine;
 
 class HomeController
 {
-    function home()
+    public function __construct(private TemplateEngine $view)
     {
-        echo "HOME";
+    }
+
+    public function home()
+    {
+        echo $this->view->render("index.php");
+    }
+
+    public function test()
+    {
+        echo $this->view->render("test.php", ['title' => 'Home']);
     }
 }
