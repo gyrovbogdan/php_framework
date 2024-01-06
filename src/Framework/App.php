@@ -26,6 +26,11 @@ class App
         $this->router->add($path, "GET", $controller);
     }
 
+    public function post(string $path, array $controller): void
+    {
+        $this->router->add($path, "POST", $controller);
+    }
+
     function run(): void
     {
         $path = parse_url($_SERVER["REQUEST_URI"], PHP_URL_PATH);

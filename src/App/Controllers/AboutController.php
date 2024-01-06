@@ -2,7 +2,6 @@
 
 namespace App\Controllers;
 
-use App\Config\Paths;
 use Framework\TemplateEngine;
 
 class AboutController

@@ -12,3 +12,8 @@ function e(mixed $value)
 {
     return htmlspecialchars((string) $value);
 }
+
+function redirectTo(string $url)
+{
+    header("Location: {$url}");
+}
