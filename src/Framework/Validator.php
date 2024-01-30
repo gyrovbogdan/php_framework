@@ -5,15 +5,14 @@ declare(strict_types=1);
 namespace Framework;
 
 use Framework\Contracts\RuleInterface;
-use Framework\Exceptions\ValidationException;
 
 class Validator
 {
     private array $rules = [];
 
-    public function validate(array $data, array $fields)
+    public function validate(array $data, array $fields, &$errors): bool
     {
-        $errors = [];
+        $isValid = true;
         foreach ($fields as $fieldName => $rules) {
             foreach ($rules as $rule) {
                 $ruleParams = [];
@@ -27,11 +26,11 @@ class Validator
 
                 if ($ruleValidator->validate($data, $fieldName, $ruleParams))
                     continue;
+                $isValid = false;
                 $errors[$fieldName][] = $ruleValidator->getMessage($data, $fieldName, $ruleParams);
             }
         }
-        if ($errors)
-            throw new ValidationException($errors);
+        return $isValid;
     }
 
     public function add(string $alias, RuleInterface $rule)

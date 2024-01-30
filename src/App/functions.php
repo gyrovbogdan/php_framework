@@ -1,5 +1,7 @@
 <?php
 
+use Framework\Http;
+
 function dd(mixed $value)
 {
     echo "<pre>";
@@ -16,4 +18,5 @@ function e(mixed $value)
 function redirectTo(string $url)
 {
     header("Location: {$url}");
+    http_response_code(Http::REDIRECT_STATUS_CODE);
 }

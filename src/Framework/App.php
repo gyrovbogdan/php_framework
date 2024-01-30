@@ -21,14 +21,28 @@ class App
         }
     }
 
-    public function get(string $path, array $controller): void
+    public function get(string $path, array $controller): App
     {
         $this->router->add($path, "GET", $controller);
+        return $this;
     }
 
-    public function post(string $path, array $controller): void
+    public function post(string $path, array $controller): App
     {
         $this->router->add($path, "POST", $controller);
+        return $this;
+    }
+
+    public function put(string $path, array $controller): App
+    {
+        $this->router->add($path, "PUT", $controller);
+        return $this;
+    }
+
+    public function delete(string $path, array $controller): App
+    {
+        $this->router->add($path, "DELETE", $controller);
+        return $this;
     }
 
     function run(): void
@@ -42,5 +56,15 @@ class App
     public function addMiddleware(string $middleware)
     {
         $this->router->addMiddleware($middleware);
+    }
+
+    public function add(string $middleware)
+    {
+        $this->router->addRouteMiddleware($middleware);
+    }
+
+    public function addErrorHandler(array $controller)
+    {
+        $this->router->addErrorHandler($controller);
     }
 }
