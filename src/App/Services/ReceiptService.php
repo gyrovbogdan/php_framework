@@ -16,16 +16,17 @@ class ReceiptService
     public function upload(int $transaction, array $file)
     {
         $storageFileName = bin2hex(random_bytes(16));
+
         if (move_uploaded_file($file['tmp_name'], Paths::STORAGE_UPLOAD . '/receipts/' . $storageFileName)) {
             $query = 'INSERT INTO receipts (original_filename, storage_filename, media_type, transaction_id)
                 VALUES (:originalFilename, :storageFilename, :mediaType, :transactionId)';
-
             $params = [
                 'originalFilename' => $file['name'],
                 'storageFilename' => $storageFileName,
                 'mediaType' => $file['type'],
                 'transactionId' => $transaction
             ];
+
             $this->database->query($query, $params);
         }
     }
@@ -33,7 +34,6 @@ class ReceiptService
     public function getReceipt(int $id)
     {
         $query = 'SELECT * FROM receipts WHERE id = :id';
-
         $params = ['id' => $id];
 
         return $this->database->query($query, $params)[0];
@@ -50,7 +50,6 @@ class ReceiptService
     public function download(array $receipt)
     {
         $filePath = Paths::STORAGE_UPLOAD . '/receipts/' . $receipt['storage_filename'];
-
         if (!is_file($filePath)) {
             redirectTo('/');
             return;
@@ -59,20 +58,17 @@ class ReceiptService
         header("Content-Disposition: inline; filename={$receipt['original_filename']}");
         header("Content-type: {$receipt['media_type']}");
 
-
         readfile($filePath);
     }
 
     public function delete(array $receipt)
     {
         $query = 'DELETE FROM receipts WHERE id = :id';
-
         $params = ['id' => $receipt['id']];
 
         $this->database->query($query, $params);
 
         $filePath =  Paths::STORAGE_UPLOAD . '/receipts/' . $receipt['storage_filename'];
-
         unlink($filePath);
     }
 }

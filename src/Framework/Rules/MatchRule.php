@@ -19,6 +19,7 @@ class MatchRule implements RuleInterface
 
         return $firstValue === $secondValue;
     }
+
     function getMessage(array $formData, string $field, array $params): string
     {
         return 'Fields are not match.';

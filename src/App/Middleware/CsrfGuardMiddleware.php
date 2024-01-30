@@ -11,7 +11,6 @@ class CsrfGuardMiddleware implements MiddlewareInterface
 {
     public function process(callable $next)
     {
-        //dd($_SERVER['CONTENT_LENGTH']);
         $availableMethods = ['POST', 'PUT', 'DELETE'];
         $method = strtoupper($_SERVER['REQUEST_METHOD']);
 

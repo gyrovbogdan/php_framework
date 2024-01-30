@@ -9,13 +9,9 @@ use PDO, PDOException;
 class Database
 {
     public PDO $connection;
-    public function __construct(
-        string $prefix,
-        array $config,
-        string $username,
-        string $password
-    ) {
 
+    public function __construct(string $prefix, array $config, string $username, string $password)
+    {
         $dsn = "$prefix:" . http_build_query(
             data: $config,
             arg_separator: ';'
@@ -32,8 +28,7 @@ class Database
     {
         $stmt = $this->connection->prepare($query);
         $stmt->execute($params);
-        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        return $result;
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
     public function id()

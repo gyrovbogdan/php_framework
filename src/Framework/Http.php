@@ -6,6 +6,5 @@ namespace Framework;
 
 class Http
 {
-
     const REDIRECT_STATUS_CODE = 302;
 }

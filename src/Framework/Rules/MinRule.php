@@ -16,6 +16,7 @@ class MinRule implements RuleInterface
 
         return $formData[$field] >= (int) $params[0];
     }
+
     function getMessage(array $formData, string $field, array $params): string
     {
         return "Field value must be greater then or equal $params[0].";

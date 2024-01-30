@@ -32,7 +32,6 @@ class TransactionService
         $query = 'DELETE FROM transactions
             WHERE id = :id
             AND user_id = :user_id';
-
         $params = [
             'id' => $id,
             'user_id' => $_SESSION['user']
@@ -47,21 +46,18 @@ class TransactionService
         $query = "SELECT *, DATE_FORMAT(date, '%Y-%m-%d') as date FROM transactions 
             WHERE id = :id
             AND user_id = :user";
-
         $params = [
             'id' => $id,
             'user' => $_SESSION['user']
         ];
 
         $result = $this->database->query($query, $params);
-
         return $result[0] ?? [];
     }
 
     public function getUserTransactions(int $limit = 5)
     {
         $searchTerm = addcslashes($_GET['s'] ?? '', '%_');
-
         $page = $_GET['p'] ?? 0;
         $offset = $page * $limit;
 
@@ -71,7 +67,6 @@ class TransactionService
             AND description LIKE :description
             ORDER BY id DESC
             LIMIT {$limit} OFFSET {$offset}";
-
         $params = [
             'user' => $_SESSION['user'],
             'description' => "%$searchTerm%",
@@ -89,14 +84,12 @@ class TransactionService
         $query = "SELECT COUNT(*) FROM transactions 
             WHERE user_id = :user
             AND description LIKE :description";
-
         $params = [
             'user' => $_SESSION['user'],
             'description' => "%$searchTerm%",
         ];
 
         $count = $this->database->query($query, $params)[0]["COUNT(*)"];
-
         $pages = ceil($count / $limit);
 
         return [$transactions, $pages];
@@ -110,7 +103,6 @@ class TransactionService
                 date = :date
             WHERE user_id = :user_id
             AND id = :id';
-
         $params = [
             'description' => $formData['description'],
             'amount' => $formData['amount'],

@@ -16,6 +16,7 @@ class InRule implements RuleInterface
 
         return in_array($formData[$field], $params);
     }
+
     function getMessage(array $formData, string $field, array $params): string
     {
         return "Invalid selection.";

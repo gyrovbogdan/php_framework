@@ -12,6 +12,7 @@ class FileErrorRule implements RuleInterface
     {
         return $formData['error'] === 0;
     }
+
     function getMessage(array $formData, string $field, array $params): string
     {
         switch ($formData[$field]) {
@@ -19,7 +20,6 @@ class FileErrorRule implements RuleInterface
                 return 'File exceeded upload max filesize.';
             case 2:
                 return 'File exceeded max file size.';
-
             case 3:
                 return 'File only partially uploaded.';
             case 4:

@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Framework\Rules;
 
 use Framework\Contracts\RuleInterface;
-use InvalidArgumentException;
 
 class ValidFileNameRule implements RuleInterface
 {

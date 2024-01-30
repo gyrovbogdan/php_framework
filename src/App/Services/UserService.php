@@ -18,7 +18,6 @@ class UserService
         $params = ['email' => $email];
 
         $result = $this->database->query($query, $params);
-
         if ($result[0]['COUNT(*)'])
             $errors['email'][] = 'Email taken';
     }
@@ -29,7 +28,6 @@ class UserService
         (email, password, age, country, social_media_url)
         VALUES
         (:email, :password, :age, :country, :socialMediaURL);';
-
         $params = [
             'email' => $data['email'],
             'password' => password_hash($data['password'], PASSWORD_BCRYPT),
@@ -45,10 +43,9 @@ class UserService
     {
         $query = 'SELECT id, password FROM users 
             WHERE email = :email';
-
         $params = ['email' => $formData['email']];
-        $result =  $this->database->query($query, $params);
 
+        $result =  $this->database->query($query, $params);
         $id = $result[0]['id'] ?? null;
 
         return password_verify($formData['password'], $result[0]['password'] ?? "");

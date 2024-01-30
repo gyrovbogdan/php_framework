@@ -6,7 +6,6 @@ namespace Framework\Rules;
 
 use Framework\Contracts\RuleInterface;
 
-
 class NumericRule implements RuleInterface
 {
     public function validate(array $formData, string $field, array $params): bool

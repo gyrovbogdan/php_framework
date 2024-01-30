@@ -14,6 +14,7 @@ class PasswordRule implements RuleInterface
         '*[0-9]' => 'The password must contain at least one digit(0-9).',
         '*[!#$%&?@ "]' => 'The password must contain at least one special character(!#$%&?@ ").',
     ];
+
     public function validate(array $formData, string $field, array $params): bool
     {
         foreach ($this->rules as $rule => $message) {

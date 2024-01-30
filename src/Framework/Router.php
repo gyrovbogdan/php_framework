@@ -8,18 +8,19 @@ class Router
 {
     private array $routes = [];
     private array $middlewares = [];
-
     private array $errorHandler;
 
     public function add(string $path, string $method, array $controller)
     {
         $regexPath = preg_replace('#{[^/]+}#', '([^/]+)', $path);
+
         $this->routes[] = [
             'path' => $this->normalizePath($path),
             'method' => strtoupper($method),
             'controller' => $controller,
             'regexPath' => $regexPath
         ];
+
         return $this;
     }
 
@@ -88,7 +89,6 @@ class Router
     public function dispatchErrorHandler(Container $container = NULL)
     {
         [$class, $function] = $this->errorHandler;
-
         $controllerInstance = $container ?
             $container->resolve($class) :
             new $class;

@@ -12,6 +12,7 @@ use Framework\TemplateEngine;
 class TransactionController
 {
     private ValidatorService $validator;
+
     public function __construct(
         private TemplateEngine $view,
         private TransactionService $transactionService
@@ -26,9 +27,7 @@ class TransactionController
 
     public function create()
     {
-        $errors = [];
         $this->validator->validateTransactions($_POST, $errors);
-
         if ($errors)
             throw new ValidationException($errors);
 

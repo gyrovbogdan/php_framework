@@ -53,7 +53,6 @@ class AuthController
         if ($errors)
             throw new ValidationException($errors);
 
-
         if ($this->userService->checkPassword($_POST, $id)) {
             unset($_SESSION['email']);
             $_SESSION['user'] = $id;
@@ -64,12 +63,9 @@ class AuthController
 
     public function logout()
     {
-        unset($_SESSION['user']);
         session_destroy();
 
-
         $params = session_get_cookie_params();
-
         setcookie(
             session_name(),
             '',

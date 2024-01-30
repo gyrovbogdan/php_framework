@@ -16,6 +16,7 @@ class HomeController
     public function home()
     {
         [$transactions, $pages] = $this->transactionService->getUserTransactions();
+
         $this->view->addGlobal('transactions', $transactions);
         $this->view->addGlobal('pages', $pages);
 
@@ -24,8 +25,8 @@ class HomeController
         }
 
         $this->view->addGlobal('currentPage', $_GET['p']);
-
         $this->view->addGlobal('searchTerm', $_GET['s'] ?? '');
+
         echo $this->view->render("index.php");
     }
 }
